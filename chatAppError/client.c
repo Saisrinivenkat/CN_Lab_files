@@ -48,40 +48,40 @@ int tcp_client(const char *addr, int port)
 
 void r_and_w(int client)
 {
-  // int n;
-  // char sbuffer[MAXLINE] = {0}, rbuffer[MAXLINE] = {0};
-
-  // while (strncmp(rbuffer, "exit", 4) != 0)
-  // {
-  //   printf("\nClient : ");
-  //   fscanf(stdin, "%s", sbuffer);
-  //   write(client, sbuffer, MAXLINE);
-  //   bzero(sbuffer, MAXLINE);
-  //   bzero(rbuffer, MAXLINE);
-
-  //   read(client, &rbuffer, MAXLINE);
-  //   printf("Server: %s", rbuffer);
-  //   fflush(stdout);
-  // }
   int n;
-  char buffer[255] = {0};
+  char sbuffer[MAXLINE] = {0}, rbuffer[MAXLINE] = {0};
 
-  do
+  while (strncmp(rbuffer, "exit", 4) != 0)
   {
-    bzero(buffer, 255);
     printf("\nClient : ");
-    fgets(buffer, 255, stdin);
-    send(client, buffer, 255, 0);
-    bzero(buffer, 255);
+    scanf("%[^\n]s", sbuffer);
+    write(client, sbuffer, MAXLINE);
+    bzero(sbuffer, MAXLINE);
+    bzero(rbuffer, MAXLINE);
 
-    recv(client, &buffer, 255, 0);
-    printf("Server : %s", buffer);
-  } while (strncmp(buffer, "exit", 4));
+    read(client, &rbuffer, MAXLINE);
+    printf("Server: %s", rbuffer);
+    fflush(stdout);
+  }
+  // int n;
+  // char buffer[255] = {0};
+
+  // do
+  // {
+  //   bzero(buffer, 255);
+  //   printf("\nClient : ");
+  //   fgets(buffer, 255, stdin);
+  //   send(client, buffer, 255, 0);
+  //   bzero(buffer, 255);
+
+  //   recv(client, &buffer, 255, 0);
+  //   printf("Server : %s", buffer);
+  // } while (strncmp(buffer, "exit", 4));
 }
 
 int main()
 {
-  int client = tcp_client("127.0.0.1", 2020);
+  int client = tcp_client("127.0.0.1", 4020);
 
   r_and_w(client);
   close(client);

@@ -55,44 +55,44 @@ int tcp_server(int PORT)
 void r_and_w(int client)
 {
 
-  // int n;
-  // char sbuffer[MAXLINE] = {0}, rbuffer[MAXLINE] = {0};
-  // while (strncmp(rbuffer, "exit", 4) != 0)
-  // {
-  //   bzero(rbuffer, MAXLINE);
-  //   n = read(client, &rbuffer, MAXLINE);
-  //   if (n < 0)
-  //   {
-  //     e("Read Error;");
-  //   }
-  //   printf("Client: %s\n", rbuffer);
-  //   bzero(sbuffer, MAXLINE);
-  //   printf("Server : ");
-  //   fflush(stdout);
-  //   fgets(sbuffer, MAXLINE, stdin);
-  //   write(client, sbuffer, MAXLINE);
-  // }
   int n;
-  char buffer[255] = {0};
-  while ((n = recv(client, &buffer, 255, 0)) > 0)
+  char sbuffer[MAXLINE] = {0}, rbuffer[MAXLINE] = {0};
+  while (strncmp(rbuffer, "exit", 4) != 0)
   {
-    printf("\nClient : %s", buffer);
-    if (strcmp(buffer, "exit") == 0)
-      return;
-    bzero(buffer, 255);
-
+    bzero(rbuffer, MAXLINE);
+    n = read(client, &rbuffer, MAXLINE);
+    if (n < 0)
+    {
+      e("Read Error;");
+    }
+    printf("Client: %s\n", rbuffer);
+    bzero(sbuffer, MAXLINE);
     printf("Server : ");
-    fgets(buffer, 255, stdin);
-    send(client, buffer, 255, 0);
-    bzero(buffer, 255);
+    fflush(stdout);
+    fgets(sbuffer, MAXLINE, stdin);
+    write(client, sbuffer, MAXLINE);
   }
+  // int n;
+  // char buffer[255] = {0};
+  // while ((n = recv(client, &buffer, 255, 0)) > 0)
+  // {
+  //   printf("\nClient : %s", buffer);
+  //   if (strcmp(buffer, "exit") == 0)
+  //     return;
+  //   bzero(buffer, 255);
+
+  //   printf("Server : ");
+  //   fgets(buffer, 255, stdin);
+  //   send(client, buffer, 255, 0);
+  //   bzero(buffer, 255);
+  // }
   // return 1;
   // gcc server.c && ./a.out
 }
 
 int main()
 {
-  int port = 2020;
+  int port = 4020;
   int server = tcp_server(port);
 
   struct sockaddr_in cliaddress;

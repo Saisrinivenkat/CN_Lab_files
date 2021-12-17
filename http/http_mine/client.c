@@ -56,6 +56,7 @@ void handleResponse(int client)
     exit(0);
   }
 
+  bzero(buffer, MAXLINE);
   int size;
   while ((size = read(client, buffer, sizeof(buffer))) > 0)
   {
@@ -71,7 +72,7 @@ int main()
   printf("<IP Address> : ");
   scanf("%s", ip);
 
-  int client = httpClient(ip, 80);
+  int client = httpClient(ip, 3000);
 
   handleResponse(client);
   close(client);

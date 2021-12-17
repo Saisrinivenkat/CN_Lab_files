@@ -1,0 +1,9 @@
+I want to install python packages listed in the requirements file of my github repo. However, I have problems installing those python packages into my conda environment.
+
+First of all, I installed conda with Miniforge3-MacOSX-arm64 which supports the M1 with arm64 architecture. However, some specific python packages like onnxruntime I wasn't able to install, because I encountered error messages like that:
+
+ERROR: Could not find a version that satisfies the requirement onnxruntime
+ERROR: No matching distribution found for onnxruntime 
+I assumed that for those specific python packages there is no support yet for the M1.
+
+Therefore, I pursued another approach. I set the settings of Terminal to "Open with Rosetta". The plan is to install the applications of the intel x86_64 architecture and let Rossetta create the binaries to let run on arm64. Then I uninstalled miniforge for arm64 and installed miniforge for x86_64 named Miniforge3-MacOSX-x86_64. With that setup I was able to install all listed python packages of the requirement file and with pip freeze I can also confirm that they have been installed. However, I am somehow not able to use those python packages. For instance if I want to run pytest I get the following error:
